@@ -1,0 +1,17 @@
+{
+  "heroes": [
+    {
+      "id": "7cbdef2e-11bc-4dfd-b06d-56c4d3f47c25",
+      "name": "ранго",
+      "description": "gr",
+      "element": "water"
+    }
+  ],
+  "filters": [
+    "all",
+    "fire",
+    "water",
+    "wind",
+    "earth"
+  ]
+}

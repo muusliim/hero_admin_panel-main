@@ -13,7 +13,7 @@ import Spinner from '../spinner/Spinner';
 // Представьте, что вы попросили бэкенд-разработчика об этом
 
 const HeroesFilters = () => {
-        const {filters, filtersLoadingStatus, activeFilter} = useSelector(state => state);
+        const {filters, filtersLoadingStatus, activeFilter} = useSelector(state => state.filters);
         const dispatch = useDispatch();
         const {request} = useHttp();
     
@@ -36,6 +36,14 @@ const HeroesFilters = () => {
                 return <h5 className="text-center mt-5">Фильтры не найдены</h5>
             }
 
+            const memoRenderFilters = (name, active) => {
+                if (name !== active) {
+                    dispatch(activeFilterChanged(name))
+                } else {
+                    return
+                }
+            }
+
             return arr.map(({name, className, label}) => {
                 const btnClass = classNames('btn', className, {
                     'active': name === activeFilter
@@ -45,7 +53,7 @@ const HeroesFilters = () => {
                             key={name} 
                             id={name} 
                             className={btnClass}
-                            onClick={() => dispatch(activeFilterChanged(name))}
+                            onClick={() => memoRenderFilters(name, activeFilter)}
                             >{label}
                         </button>
             })

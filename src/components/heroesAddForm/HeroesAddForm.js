@@ -20,7 +20,7 @@ const HeroesAddForm = () => {
     const [heroDescr, setHeroDescr] = useState('');
     const [heroElement, setHeroElement] = useState('');
 
-    const {filters, filtersLoadingStatus} = useSelector(state => state);
+    const {filters, filtersLoadingStatus} = useSelector(state => state.filters);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
@@ -54,7 +54,7 @@ const HeroesAddForm = () => {
             return filters.map(({name, label}) => {
              // eslint-disable-next-line
                 if (name === 'all') return;
-                
+
             return <option key={name} value={name}>{label}</option>
             })
         }
@@ -99,7 +99,7 @@ const HeroesAddForm = () => {
                     onChange={(e) => setHeroElement(e.target.value)} 
                     id="element" 
                     name="element">
-                    <option >Я владею элементом...</option>
+                    <option value='' >Я владею элементом...</option>
                     {renderFilters(filters, filtersLoadingStatus)}
                 </select>
             </div>

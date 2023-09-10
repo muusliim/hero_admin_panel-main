@@ -1,3 +1,10 @@
+export const fetchHeroes = (request) => (selector) => (dispatch) => {
+    dispatch(eval(`${selector}Fetching()`));
+    request(`http://localhost:3001/${selector}`)
+        .then(data => dispatch(eval( `${selector}Fetched(data)`)))
+        .catch(() => dispatch(eval(`${selector}FetchingError()`)))
+}
+
 export const heroesFetching = () => {
     return {
         type: 'HEROES_FETCHING'

@@ -1,65 +1,17 @@
-export const fetchHeroes = (request) => (selector) => (dispatch) => {
-    dispatch(eval(`${selector}Fetching()`));
-    request(`http://localhost:3001/${selector}`)
-        .then(data => dispatch(eval( `${selector}Fetched(data)`)))
-        .catch(() => dispatch(eval(`${selector}FetchingError()`)))
+import {heroesFetched, heroesFetching, heroesFetchingError} from '../components/heroesList/heroesSlice';
+import { filtersFetched, filtersFetching, filtersFetchingError } from '../components/heroesFilters/filtersSlice';
+
+export const fetchHeroes = (request) => (dispatch) => {
+    dispatch(heroesFetching());
+    request(`http://localhost:3001/heroes`)
+        .then(data => dispatch(heroesFetched(data)))
+        .catch(() => dispatch(heroesFetchingError()))
 }
 
-export const heroesFetching = () => {
-    return {
-        type: 'HEROES_FETCHING'
-    }
+export const fetchFilters = (request) => (dispatch) => {
+    dispatch(filtersFetching());
+    request(`http://localhost:3001/filters`)
+        .then(data => dispatch(filtersFetched(data)))
+        .catch(() => dispatch(filtersFetchingError()))
 }
 
-export const heroesFetched = (heroes) => {
-    return {
-        type: 'HEROES_FETCHED',
-        payload: heroes
-    }
-}
-
-export const heroesFetchingError = () => {
-    return {
-        type: 'HEROES_FETCHING_ERROR'
-    }
-}
-
-export const heroDeleting = (id) => {
-    return {
-        type: 'HERO_DELETING',
-        payload: id
-    }
-}
-
-export const newHeroAdd = (hero) => {
-    return {
-        type: 'HERO_ADD',
-        payload: hero
-    }
-}
-
-export const filtersFetching = () => {
-    return {
-        type: 'FILTERS_FETCHING'
-    }
-}
-
-export const filtersFetched = (filters) => {
-    return {
-        type: 'FILTERS_FETCHED',
-        payload: filters
-    }
-}
-
-export const filtersFetchingError = () => {
-    return {
-        type: 'FILTERS_FETCHING_ERROR'
-    }
-}
-
-export const activeFilterChanged = (filter) => {
-    return {
-        type: 'ACTIVE_FILTER_CHANGED',
-        payload: filter
-    }
-}

@@ -4,7 +4,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import { fetchHeroes, heroDeleting } from '../../actions';
+import { fetchHeroes } from '../../actions';
+import { heroDeleted } from './heroesSlice';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -29,13 +30,13 @@ const HeroesList = () => {
     const {request} = useHttp();
 
     useEffect(() => {
-        dispatch(fetchHeroes(request)('heroes'))
+        dispatch(fetchHeroes(request))
         // eslint-disable-next-line
     }, []);
 
     const onHeroDelete = useCallback((id) => {
         request(`http://localhost:3001/heroes/${id}`, "DELETE")
-        .then(dispatch(heroDeleting(id)))
+        .then(dispatch(heroDeleted(id)))
         .catch(e => console.log(e));
         // eslint-disable-next-line
     },[request])
